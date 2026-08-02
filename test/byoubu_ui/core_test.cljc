@@ -167,6 +167,18 @@
     (is (= "/p.avif" (:poster (second vid)))
         "the still is the video's own poster, so there is no gap on first frame")))
 
+(deftest assets-base-resolves-the-catalog-poster
+  (testing "the tier-1 upgrade needs a base path, not per-page URL bookkeeping"
+    (let [img (find-class (ui/backdrop {:backdrop :purple-desert :assets-base "/assets"} "x")
+                          "byoubu__plate-media")]
+      (is (= :img (first img)))
+      (is (= "/assets/byoubu/posters/purple-desert.svg" (:src (second img))))))
+  (testing "an explicit :poster still wins"
+    (let [img (find-class (ui/backdrop {:backdrop :purple-desert
+                                        :assets-base "/assets" :poster "/mine.avif"} "x")
+                          "byoubu__plate-media")]
+      (is (= "/mine.avif" (:src (second img)))))))
+
 (deftest scrim-is-opt-in
   (is (nil? (find-class (ui/backdrop {:backdrop :purple-desert} "x") "byoubu__scrim")))
   (is (some? (find-class (ui/backdrop {:backdrop :purple-desert :scrim? true} "x")

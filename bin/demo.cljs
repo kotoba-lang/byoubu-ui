@@ -60,7 +60,7 @@
         f     (byoubu/facts id)
         theme (ui/theme-for id)]
     (ui/backdrop
-     {:backdrop id :class "demo-stage"}
+     {:backdrop id :class "demo-stage" :assets-base "assets"}
      [:div {:class "demo-inner"}
       (panel f
              (list
@@ -110,6 +110,27 @@
        "</body></html>"))
 
 (fs/mkdirSync "docs" #js {:recursive true})
-(fs/writeFileSync "docs/demo.html" html)
+
+;; Copy the catalog's tier-1 posters next to the page so the demo is a real
+;; end-to-end run — gradients paint first, the poster fades in over them —
+;; rather than a tier-0-only page pretending to be the whole thing.
+(let [dst "docs/assets/byoubu/posters"]
+  (fs/mkdirSync dst #js {:recursive true})
+  (doseq [id (byoubu/ids)
+          :let [p (byoubu/poster id)]
+          :when p]
+    (fs/copyFileSync (str "../byoubu/resources/" (:path p))
+                     (str dst "/" (name id) ".svg"))))
+
+;; The media element only becomes visible once it has decoded — that class is
+;; the library's contract and the page, not the library, is what adds it.
+(def ready-script
+  "<script>for (const m of document.querySelectorAll('.byoubu__plate-media')) {
+     const show = () => m.classList.add('byoubu__plate-media--ready');
+     if (m.tagName === 'IMG') { m.complete ? show() : m.addEventListener('load', show); }
+     else { m.addEventListener('canplay', show); }
+   }</script>")
+
+(fs/writeFileSync "docs/demo.html" (str/replace html "</body>" (str ready-script "</body>")))
 (println "wrote docs/demo.html —" (count (byoubu/ids)) "backdrops,"
          (count html) "bytes")

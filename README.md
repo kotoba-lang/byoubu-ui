@@ -85,12 +85,29 @@ nbb bin/test.cljs        # needs sibling ../byoubu and ../css checkouts
 clojure -M:local:test    # JVM
 ```
 
+## Tiers
+
+```clojure
+;; tier 0 only — no assets, paints on first frame
+(byoubu-ui/backdrop {:backdrop :purple-desert} content)
+
+;; tier 1 — the catalog's rendered poster fades in over the gradients
+(byoubu-ui/backdrop {:backdrop :purple-desert :assets-base "/assets"} content)
+```
+
+With `:assets-base`, the poster URL is resolved from `byoubu`'s manifest, so a
+page does not keep its own table of backdrop→file. Serve `byoubu`'s
+`resources/byoubu/posters/` under that prefix. An explicit `:poster` still wins,
+and `:loop-src` takes a video for a moving tier.
+
 ## Status
 
-Tier 0 (gradient plate) is implemented and tested. The `:poster` and
-`:loop-src` inputs are wired end to end — element, fade-in class, reduced-motion
-behaviour — but **no artifact exists to point them at yet**: `byoubu` has not
-rendered T1/T2 output. Pass your own URLs and they work; the catalog does not
-ship any.
+Tiers 0 and 1 are implemented and tested; 24 tests / 113 assertions on both
+runtimes. `bin/demo.cljs` renders every catalog backdrop with real content and
+a real poster over the gradients — verified in Chrome.
+
+`:loop-src` is wired end to end (element, fade-in, reduced-motion) but the
+catalog ships no video: `byoubu` has no T2 renderer. Pass your own URL and it
+works.
 
 See `docs/adr/0001-byoubu-ui.md`.

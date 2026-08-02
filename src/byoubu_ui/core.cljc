@@ -98,20 +98,29 @@
   "Stage with a backdrop plate behind `content`.
 
   opts:
-    :backdrop   backdrop id (or an already-fetched backdrop map) — required
-    :poster     URL of a rendered still (tier 1), optional
-    :loop-src   URL of a looping video (tier 2 delivery), optional
-    :loop-type  MIME type for :loop-src, default \"video/webm\"
-    :scrim?     add the legibility veil element (opacity comes from tokens)
+    :backdrop    backdrop id (or an already-fetched backdrop map) — required
+    :assets-base URL prefix the catalog's posters are served under, e.g.
+                 \"/assets\". With it, the tier-1 poster is resolved from the
+                 catalog manifest — no per-page URL bookkeeping.
+    :poster      explicit poster URL; wins over :assets-base
+    :loop-src    URL of a looping video (tier 2 delivery), optional
+    :loop-type   MIME type for :loop-src, default \"video/webm\"
+    :scrim?      add the legibility veil element (opacity comes from tokens)
     :id :class :attrs   passed through to the stage element
+
+  With neither :assets-base nor :poster the stage still paints: tier 0 needs
+  no assets. That is the intended default for a page that has not decided how
+  it serves static files yet.
 
   An unknown backdrop id throws here rather than rendering an empty stage:
   a page with no backdrop looks like a styling bug and gets debugged for an
   hour; an exception names the typo."
   [opts & content]
-  (let [{:keys [backdrop poster loop-src loop-type scrim? id class attrs]} opts
-        b     (byoubu/fetch (if (map? backdrop) (:byoubu/id backdrop) backdrop))
-        media (media-element {:poster poster :loop-src loop-src :loop-type loop-type})]
+  (let [{:keys [backdrop poster assets-base loop-src loop-type scrim? id class attrs]} opts
+        b      (byoubu/fetch (if (map? backdrop) (:byoubu/id backdrop) backdrop))
+        poster (or poster
+                   (when assets-base (byoubu/poster-url (:byoubu/id b) assets-base)))
+        media  (media-element {:poster poster :loop-src loop-src :loop-type loop-type})]
     [:div (merge {:class (cond-> (class-name :stage) class (str " " class))
                   :data-byoubu (name (:byoubu/id b))}
                  (when id {:id id})
