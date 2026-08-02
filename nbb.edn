@@ -1,0 +1,3 @@
+;; nbb does not resolve :deps from deps.edn — sibling checkouts go on :paths.
+;; `nbb bin/test.cljs` runs the same .cljc tests the JVM runner does.
+{:paths ["src" "test" "../byoubu/src" "../css/src"]}
