@@ -11,7 +11,7 @@
 
   Token map -> CSS custom properties, same two-tier shape as
   liquid-glass.tokens / shitsuke.tokens."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (def default-tokens
   {:byoubu/plate
