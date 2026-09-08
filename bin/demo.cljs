@@ -10,7 +10,7 @@
 
   Run: nbb bin/demo.cljs   (needs sibling ../byoubu and ../css checkouts)"
   (:require ["node:fs" :as fs]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [byoubu.core :as byoubu]
             [byoubu-ui.core :as ui]))
 
@@ -66,7 +66,7 @@
              (list
               [:p {:class "demo-eyebrow"
                    :style {:color (:byoubu.facts/accent f)}}
-               (str/upper-case (name id))]
+               (str/upper (name id))]
               [:h2 {:class "demo-title"} (:byoubu/title b)]
               [:p {:class "demo-summary"} (str/replace (:byoubu/summary b) #"\s+" " ")]
               [:dl {:class "demo-facts"}
