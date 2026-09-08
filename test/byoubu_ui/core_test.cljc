@@ -4,7 +4,7 @@
             [byoubu-ui.core :as ui]
             [byoubu-ui.style :as style]
             [byoubu-ui.tokens :as t]
-            [clojure.string :as str]))
+            [kotoba.lang.text :as str]))
 
 ;; --- tokens ----------------------------------------------------------------
 

@@ -18,7 +18,7 @@
   (:require [byoubu.core :as byoubu]
             [byoubu-ui.tokens :as t]
             [css.core :as css]
-            [clojure.string :as str]))
+            [kotoba.lang.text :as str]))
 
 (defn class-name
   "Stable class for a part or part--modifier, e.g. (class-name :plate)

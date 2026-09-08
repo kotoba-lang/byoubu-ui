@@ -12,7 +12,12 @@
  ;; Git coordinates, not :local/root — a downstream consumer that pulls this
  ;; repo as a git dep cannot resolve a sibling path inside ~/.gitlibs. The
  ;; :local alias below is the sibling-checkout workflow.
- :deps {io.github.kotoba-lang/byoubu
+ :deps {
+        ;; kotoba.lang.text, not clojure.string. Pinned as an explicit floor:
+        ;; tools.deps takes the NEWEST sha it is shown, so without a floor here
+        ;; this repo silently rides whatever a sibling happens to name.
+        io.github.kotoba-lang/text {:git/sha "73bdb13ae7a3d004b44bca08be03a3191157a38f"}
+       io.github.kotoba-lang/byoubu
         {:git/url "https://github.com/kotoba-lang/byoubu.git"
          ;; tier-1 posters + measured content bands
          :git/sha "74accdd41fd86297ffb8d4de20942a46a9ba79e1"}
