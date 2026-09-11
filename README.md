@@ -21,7 +21,7 @@ the ink and the browser chrome agree with that picture — accent, appearance,
 label color and page background all derived from the backdrop's palette by
 `byoubu.facts`, not chosen by hand per page.
 
-Run `nbb bin/demo.cljk` and open `docs/demo.html` to see every catalog
+Run `kbb --backend sci bin/demo.cljk` and open `docs/demo.html` to see every catalog
 backdrop with content on it.
 
 ## Where it sits
@@ -81,8 +81,8 @@ salt flat.
 ## Tests
 
 ```bash
-nbb bin/test.cljk        # needs sibling ../byoubu and ../css checkouts
-clojure -M:local:test    # JVM
+kbb --backend sci bin/test.cljk        # needs sibling ../byoubu and ../css checkouts
+kbb -M:local:test    # JVM
 ```
 
 ## Tiers
