@@ -8,7 +8,7 @@
   whether the numbers describe something worth using. It is also the sample
   corpus the workspace's design-quality :sample-visual layer wants.
 
-  Run: nbb bin/demo.cljs   (needs sibling ../byoubu and ../css checkouts)"
+  Run: nbb bin/demo.cljk   (needs sibling ../byoubu and ../css checkouts)"
   (:require ["node:fs" :as fs]
             [kotoba.lang.text :as str]
             [byoubu.core :as byoubu]
