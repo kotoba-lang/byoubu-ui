@@ -1,5 +1,5 @@
 (ns test
-  "nbb test entry: `nbb bin/test.cljk` from the repo root. Requires sibling
+  "nbb test entry: `kbb --backend sci bin/test.cljk` from the repo root. Requires sibling
   checkouts of kotoba-lang/byoubu and kotoba-lang/css (see nbb.edn :paths)."
   (:require [clojure.test :as t]
             [byoubu-ui.core-test]))
