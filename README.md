@@ -21,7 +21,7 @@ the ink and the browser chrome agree with that picture — accent, appearance,
 label color and page background all derived from the backdrop's palette by
 `byoubu.facts`, not chosen by hand per page.
 
-Run `nbb bin/demo.cljs` and open `docs/demo.html` to see every catalog
+Run `nbb bin/demo.cljk` and open `docs/demo.html` to see every catalog
 backdrop with content on it.
 
 ## Where it sits
@@ -81,7 +81,7 @@ salt flat.
 ## Tests
 
 ```bash
-nbb bin/test.cljs        # needs sibling ../byoubu and ../css checkouts
+nbb bin/test.cljk        # needs sibling ../byoubu and ../css checkouts
 clojure -M:local:test    # JVM
 ```
 
@@ -103,7 +103,7 @@ and `:loop-src` takes a video for a moving tier.
 ## Status
 
 Tiers 0 and 1 are implemented and tested; 24 tests / 113 assertions on both
-runtimes. `bin/demo.cljs` renders every catalog backdrop with real content and
+runtimes. `bin/demo.cljk` renders every catalog backdrop with real content and
 a real poster over the gradients — verified in Chrome.
 
 `:loop-src` is wired end to end (element, fade-in, reduced-motion) but the
